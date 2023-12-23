@@ -16,7 +16,7 @@ class MangaReader(ft.UserControl):
             os.mkdir(folder);
             for n, link in enumerate(links):
                 img = requests.get(link);
-                with open(f"{folder}/ch{n}.jpg" "wb") as f:
+                with open(f"{folder}/ch{n}.jpg", "wb") as f:
                     f.write(img.content);
 
     def read(self, e):
