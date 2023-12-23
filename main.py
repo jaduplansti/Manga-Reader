@@ -1,6 +1,5 @@
 import flet as ft;
 from mangapanda import MangaPanda;
-from PIL import Image;
 import requests;
 import os;
 
@@ -10,13 +9,14 @@ class MangaReader(ft.UserControl):
         self.page = page;
 
     def download_chapter(self, name, links):
-        if os.path.exists(f"{os.getcwd()}/chapters/{'_'.join(name.split(" ")).lower()}"):
+        folder = "{pwd}/chapters/{nm}".format(pwd = os.getcwd(), nm = '_'.join(name.split(" ")).lower());
+        if os.path.exists(folder):
             return;
         else: 
-            os.makedirs(f"{os.getcwd()}/chapters/{'_'.join(name.split(" ")).lower()}");
+            os.mkdir(folder);
             for n, link in enumerate(links):
                 img = requests.get(link);
-                with open(f"{os.getcwd()}/chapters/{'_'.join(name.split(" ")).lower()}/ch{n}.jpg", "wb") as f:
+                with open(f"{folder}/ch{n}.jpg" "wb") as f:
                     f.write(img.content);
 
     def read(self, e):
@@ -26,9 +26,9 @@ class MangaReader(ft.UserControl):
         links = MangaPanda().fetch_image(name, 1);
         self.download_chapter(name, links);
         for n in range(len(links)):
-            print(n);
+            nm = '_'.join(name.split(" ")).lower();
             images.controls.append(
-                ft.Container(alignment = ft.alignment.center, content = ft.Image(src = f"/chapters/{'_'.join(name.split(" ")).lower()}/ch{n}.jpg", fit = ft.ImageFit.CONTAIN))
+                ft.Container(alignment = ft.alignment.center, content = ft.Image(src = f"/chapters/{nm}/ch{n}.jpg", fit = ft.ImageFit.CONTAIN))
             );
 
         self.page.add(images);
