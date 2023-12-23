@@ -58,4 +58,4 @@ class MangaReader(ft.UserControl):
 def entry(page):
     page.add(MangaReader(page));
 
-ft.app(target = entry, view = ft.AppView.WEB_BROWSER, assets_dir = "chapters", port=os.getenv("PORT", default=5000));
+ft.app(target = entry, view = None, assets_dir = "chapters", port=os.getenv("PORT", default=5000));
