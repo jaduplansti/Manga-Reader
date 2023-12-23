@@ -1,0 +1,5 @@
+flet
+requests
+beautifulsoup4
+AnilistPython
+Pillow
